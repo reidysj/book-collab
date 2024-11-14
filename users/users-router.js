@@ -57,6 +57,7 @@ router.delete("/:id", verifyId, (req, res, _next) => {
 });
 
 function verifyId(req, res, next) {
+  //TODO: Verify ID is a UUID
   const user_id = req.params.id;
   Users.getBy({ user_id })
     .then((user) => {

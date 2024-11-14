@@ -1,7 +1,24 @@
-/**
- POST /chapters/:chapter_id/versions: Create a new version of a chapter.
+const router = require("express").Router();
+const Versions = require("./versions-model.js");
 
-GET /chapters/:chapter_id/versions: Retrieve all versions of a chapter.
+router.post("/", (req, res, _next) => {
+  Versions.add(version)
+    .then((version) => res.status(201).json(version))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
-GET /versions/:id: Retrieve details of a specific version by ID.
- */
+router.get("/:chapter_id/:version_id", (req, res, _next) => {
+  const version_id = req.params.version_id;
+  Versions.getBy({ version_id })
+    .then((version) => res.status(200).json(version))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+router.get("/:chapter_id", (req, res, _next) => {
+  const chapter_id = req.params.chapter_id;
+  Versions.getBy({ chapter_id })
+    .then((versions) => res.status(200).json(versions))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+module.exports = router;

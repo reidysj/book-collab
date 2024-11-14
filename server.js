@@ -6,21 +6,27 @@ const server = express();
 //Router uploads here
 const authRouter = require("./auth/auth-router.js");
 const userRouter = require("./users/users-router.js");
+const bookRouter = require("./books/books-router.js");
+const collaboratorRouter = require("./collaborators/collaborators-router.js");
+const chapterRouter = require("./chapters/chapters-router.js");
+const versionRouter = require("./versions/versions-router.js");
 
 //Invoke utils
 server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
+//BIG TODO: GO THROUGH EACH ENDPOINT. WHO SHOULD BE ABLE TO DO THESE THINGS?
+
 //Invoke routers
 //TODO: API KEY
 server.use("/api/auth", authRouter);
 server.use("/api/users", userRouter);
-// app.use("/books", bookRoutes);
-// app.use("/collaborators", collaboratorRoutes);
-// app.use("/chapters", chapterRoutes);
-// app.use("/versions", versionRoutes);
-// app.use("/comments", commentRoutes);
+server.use("/api/collaborators", collaboratorRouter);
+server.use("/api/chapters", chapterRouter);
+server.use("/api/books", bookRouter);
+server.use("/api/versions", versionRouter);
+// server.use("/api/comments", commentRouter);
 
 //Status endpoint
 server.get("/", (_req, res, _next) => {
